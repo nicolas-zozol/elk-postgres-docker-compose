@@ -1,17 +1,38 @@
 Linux settings
 =====
 
-N7CZ3hfFU/1xRjfpkZS7aA==
+Elastic has user : `elastic` and a password like: N7CZ3hfFU/1xRjfpkZS7aA==
+Kibana is accessible at [http://localhost:5601/app/kibana]()
+Postgres has user/password defined on .env file. Database is `postgres` and port 5432
+Adminer web app is accessible with [http://localhost:8080]()
+
+
+.env file exemple:
+
+    TAG=6.6.0
+    ELASTIC_VERSION=6.6.0
+    POSTGRES_USER=nicolas
+    POSTGRES_PASSWORD=pass
+
+`.env` file **SHOULD NOT** be on your git repository
 
 
 WARNING !!!!
 -----
 
 * Linux Users must set the following configuration as `root`:
+* Using `docker-compose up` without `--daemeon` flag, you may see:
 
-```
-sysctl -w vm.max_map_count=262144
-```
+
+        [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+        max virtual memory areas vm.max_map_count [65530] i
+
+
+So change it in any terminal you start, or in `.bashrc` file if needed
+
+
+        sudo sysctl -w vm.max_map_count=262144
+
 By default, the amount of Virtual Memory [is not enough](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
 
 
@@ -37,7 +58,7 @@ Now we can launch the stack with `docker-compose up -d` to create a demonstratio
 Elasticsearch, Kibana, Logstash, Auditbeat, Metricbeat, Filebeat, Packetbeat,
 and Heartbeat.
 
-Point a browser at [`http://localhost:5601`](http://localhost:5601) to see the results.
+** After success**, Kibana is there at [`http://localhost:5601`](http://localhost:5601) to see the results.
 > *NOTE*: Elasticsearch is now setup with self-signed certs.
 
 Log in with `elastic` and what ever your auto generated elastic password is from the

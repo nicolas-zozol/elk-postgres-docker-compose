@@ -1,0 +1,36 @@
+---
+version: '3.3'
+services:
+  # POSTGRES: https://github.com/docker-library/postgres
+  db:
+    image: postgres
+    container_name: db
+    #restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # exposes 5432
+    networks: ['stack']
+    ports: ['5432:5432']
+    volumes:
+    - ./db-data:/var/lib/postgresql/data
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    #restart: always
+    ports:
+    - 8080:8080
+    networks: ['stack']
+
+# potentially same network as elastic-search
+networks: {stack: {}}
+
+# From: https://github.com/docker/compose/issues/2957#issuecomment-289478008
+#volumes:
+#  db-data:
+#   driver: local
+#   driver_opts:
+#   type: none
+#   device: "${PWD}/db-data"
+#   o: bind

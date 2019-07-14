@@ -1,6 +1,29 @@
 ---
 version: '3.3'
 services:
+  # POSTGRES: https://github.com/docker-library/postgres
+  # uses ./db-data as database directory files
+  # use chown -R g+rx ./db-data to have read access on it
+  db:
+    image: postgres
+    container_name: db
+    #restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # exposes 5432
+    #networks: ['stack']
+    ports: ['5432:5432']
+    volumes:
+    - ./db-data:/var/lib/postgresql/data
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    #restart: always
+    ports:
+    - 8080:8080
+    #networks: ['stack']
   # The environment variable "TAG" is used throughout this file to
   # specify the version of the images to run. The default is set in the
   # '.env' file in this folder. It can be overridden with any normal
