@@ -52,10 +52,13 @@ TL;DR
     docker-compose pull     
     
     # initiate security
+    # CHECK the password
     docker-compose -f setup.yml up
     
     # start services  
     docker-compose -d up 
+    # and wait quite a long time.... 
+    # TIP: Remove -d to check errors on start
     
     # stop : DO NOT use docker-compose down or it destroys everything
     docker-compose stop
