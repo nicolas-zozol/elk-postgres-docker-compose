@@ -1,3 +1,67 @@
+Install Docker on Ubuntu
+====
+
+docker and docker.io are bad or old projects. Use docker-ce
+
+    sudo apt-get update
+    sudo apt-get install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg-agent \
+        software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io
+    
+    # Check groups
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+    newgrp docker  # change groups without logout/login
+    groups  # check you have docker in your groups
+    
+
+Now install docker compose
+
+    sudo apt  install docker-compose
+    
+    # sudo apt install python-pip
+    # pip install docker-compose
+                   
+Configure Docker to start on boot
+
+    sudo systemctl enable docker
+    # sudo systemctl disable docker # for disable     
+
+And now please reboot.
+
+
+Quickstart
+====
+
+TL;DR
+
+    # add memory
+    sudo sysctl -w vm.max_map_count=262144
+    
+    # download image from the web
+    docker-compose pull     
+    
+    # initiate security
+    docker-compose -f setup.yml up
+    
+    # start services  
+    docker-compose -d up 
+    
+    # stop : DO NOT use docker-compose down or it destroys everything
+    docker-compose stop
+        
+
+
 Linux settings
 =====
 
@@ -30,8 +94,12 @@ WARNING !!!!
 
 So change it in any terminal you start, or in `.bashrc` file if needed
 
-
         sudo sysctl -w vm.max_map_count=262144
+
+But lol, you can't easily sudo in .bash_rc. So do it every time and create a shortcut
+
+        alias mem='sudo sysctl -w vm.max_map_count=262144'        
+        
 
 By default, the amount of Virtual Memory [is not enough](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
 

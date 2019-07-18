@@ -1,3 +1,4 @@
+elk-postgres-docker-compose.iml
 **/*~
 # We wanna ignore any config/ssl/etc.. type file. As the setup container will create these for us.
 
@@ -21,3 +22,5 @@ config/heartbeat/heartbeat.keystore
 config/metricbeat/metricbeat.keystore
 config/packetbeat/packetbeat.keystore
 config/apm-server/apm-server.keystore
+
+
